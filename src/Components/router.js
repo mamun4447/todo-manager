@@ -1,4 +1,4 @@
-import AddTask from "../Pages/AddTask";
+import AllTask from "../Pages/AllTask";
 import CompletedTast from "../Pages/CompletedTast";
 import LogIn from "../Pages/LogIn";
 import SignUp from "../Pages/SignUp";
@@ -17,8 +17,8 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/add-task",
-        element: <AddTask />,
+        path: "/all-task",
+        element: <AllTask />,
       },
       {
         path: "/completed",
