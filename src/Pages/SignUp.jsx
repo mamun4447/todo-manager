@@ -1,10 +1,13 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthProvider";
+import { GoogleAuthProvider } from "firebase/auth";
+import { toast } from "react-hot-toast";
 
 const SignUp = () => {
-  const { user, userSignUp } = useContext(AuthContext);
+  const { user, userSignUp, signInWithGmail } = useContext(AuthContext);
   const navigate = useNavigate();
+  const provider = new GoogleAuthProvider();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -31,6 +34,20 @@ const SignUp = () => {
     // setName(name)
     //   .then((res) => console.log(res))
     //   .catch((error) => console.log(error));
+  };
+
+  const googleLogin = (event) => {
+    event.preventDefault();
+
+    signInWithGmail(provider)
+      .then((res) => {
+        navigate("/");
+        toast.success("User Logged In Successfully!");
+      })
+      .then((error) => {
+        toast.error(error?.message);
+        console.log(error);
+      });
   };
 
   return (
@@ -93,26 +110,32 @@ const SignUp = () => {
             </div>
           </div>
         </form>
+        <button
+          onClick={googleLogin}
+          className="shadow-md w-full p-2 mt-5 border rounded-sm"
+        >
+          Google
+        </button>
       </div>
       <Link
         to="/"
         type="button"
-        class="text-purple-700 border border-purple-700 hover:bg-purple-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-purple-500 dark:text-purple-500 dark:hover:text-white dark:focus:ring-purple-800"
+        className="text-purple-700 border border-purple-700 hover:bg-purple-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-purple-500 dark:text-purple-500 dark:hover:text-white dark:focus:ring-purple-800"
       >
         <svg
           aria-hidden="true"
-          class="w-5 h-5"
+          className="w-5 h-5"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            fill-rule="evenodd"
+            fillRule="evenodd"
             d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-            clip-rule="evenodd"
+            clipRule="evenodd"
           ></path>
         </svg>
-        <span class="sr-only">Icon description</span>
+        <span className="sr-only">Icon description</span>
       </Link>
     </div>
   );

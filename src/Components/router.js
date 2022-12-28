@@ -1,5 +1,5 @@
 import AllTask from "../Pages/AllTask";
-import CompletedTast from "../Pages/CompletedTast";
+import CompletedTask from "../Pages/CompletedTask";
 import LogIn from "../Pages/LogIn";
 import SignUp from "../Pages/SignUp";
 
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/completed",
-        element: <CompletedTast />,
+        element: <CompletedTask />,
       },
     ],
   },

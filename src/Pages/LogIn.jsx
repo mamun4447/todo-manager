@@ -3,10 +3,12 @@ import { useContext } from "react";
 import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthProvider";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const LogIn = () => {
-  const { user, userLogIn } = useContext(AuthContext);
+  const { user, userLogIn, signInWithGmail } = useContext(AuthContext);
   const navigate = useNavigate();
+  const provider = new GoogleAuthProvider();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -23,6 +25,20 @@ const LogIn = () => {
       .catch((error) => {
         console.log(error);
         toast.error(error.message);
+      });
+  };
+
+  const googleLogin = (event) => {
+    event.preventDefault();
+
+    signInWithGmail(provider)
+      .then((res) => {
+        navigate("/");
+        toast.success("User Logged In Successfully!");
+      })
+      .then((error) => {
+        toast.error(error?.message);
+        console.log(error);
       });
   };
   return (
@@ -63,6 +79,12 @@ const LogIn = () => {
               </div>
             </div>
           </form>
+          <button
+            onClick={googleLogin}
+            className="shadow-md w-full p-2 mt-5 border rounded-sm"
+          >
+            Google
+          </button>
         </div>
         <Link
           to="/"
@@ -77,9 +99,9 @@ const LogIn = () => {
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              fill-rule="evenodd"
+              fillRule="evenodd"
               d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-              clip-rule="evenodd"
+              clipRule="evenodd"
             ></path>
           </svg>
           <span className="sr-only">Icon description</span>

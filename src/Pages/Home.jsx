@@ -38,7 +38,7 @@ const Home = () => {
     };
     // console.log(task);
 
-    fetch("http://localhost:8000/tasks", {
+    fetch("http://localhost:5000/tasks", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -56,7 +56,7 @@ const Home = () => {
   return (
     <form onSubmit={handleSubmit} className="container mx-auto">
       <h2 className="text-4xl text-center p-10">Task Manager</h2>
-      <div className="flex">
+      <div className="flex gap-2">
         <input
           type="text"
           className="w-full text-2xl border-none rounded-md mb-5 bg-purple-5  0 py-3"

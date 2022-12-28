@@ -7,12 +7,9 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
-  updateProfile,
 } from "firebase/auth";
-import { GoogleAuthProvider } from "firebase/auth";
 import { useEffect } from "react";
 
-const provider = new GoogleAuthProvider();
 const auth = getAuth(app);
 export const AuthContext = createContext(auth);
 
@@ -33,7 +30,7 @@ const AuthProvider = ({ children }) => {
   };
 
   //<===< SingIn with Gmail >===>//
-  const signInWithGmail = () => {
+  const signInWithGmail = (provider) => {
     setLoader(true);
     return signInWithPopup(auth, provider);
   };
